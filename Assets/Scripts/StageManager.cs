@@ -26,7 +26,10 @@ public class StageManager : MonoBehaviour
 
     private void transformPart(int part)
     {
-
+        if (part == 3)
+        {
+            part = 0;
+        }
 
         Debug.Log("transformPart(" + part + ")");
         Vector3 pos = blocks[part].transform.position;
@@ -38,7 +41,7 @@ public class StageManager : MonoBehaviour
 
     public void nextPart()
     {
-
+   
         transformPart(currentPart);
         currentPart++;
         if (currentPart == 3)

@@ -1,1 +1,1 @@
-# butterfly_effect
+# Butterfly Effect Project

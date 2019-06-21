@@ -5,8 +5,8 @@ using UnityEngine;
 public class Finish : MonoBehaviour
 {
 
-    [SerializeField]
-    Counter counter;
+    [SerializeField] Counter counter;
+    [SerializeField] UIManager uiManager;
 
     private void OnTriggerEnter(Collider coll)
     {

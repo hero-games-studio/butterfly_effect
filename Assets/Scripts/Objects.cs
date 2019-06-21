@@ -54,6 +54,8 @@ public class Objects : MonoBehaviour {
         parentName = transform.parent.transform.parent.name;
 
         firstPosition = transform.position;
+
+        rigid.isKinematic = true;
     }
 
     void Update()
@@ -84,9 +86,11 @@ public class Objects : MonoBehaviour {
         if (coll.gameObject.name == "Counter")
         {
             finish = false;
+            rigid.isKinematic = true;
         }
         if (coll.gameObject.tag == "CatchArea")//+1 effect
         {
+
             Instantiate(pointPrefab,transform.position,Quaternion.identity);
             particle.Play();
         }
@@ -98,6 +102,11 @@ public class Objects : MonoBehaviour {
         if (coll.gameObject.tag == "MagnetField")
         {
             magnetEffect();
+            rigid.isKinematic = false;
+        }
+        if (coll.gameObject.tag == "CatchArea" && magnetField)
+        {
+            rigid.velocity = magnet.GetComponent<Magnet>().getVelocity();
         }
     }
     
@@ -116,6 +125,11 @@ public class Objects : MonoBehaviour {
         return parentName;
     }
 
+    public void setParentName()
+    {
+        parentName= transform.root.gameObject.name;
+    }
+
     void setFinish()
     {
         finish = true;
@@ -127,11 +141,17 @@ public class Objects : MonoBehaviour {
         anim.SetFloat("animSpeed", speed);
     }
 
+    public void setFirstPosition(Vector3 pos)
+    {
+        firstPosition = pos;
+    }
+
     public void reSetPosition()//to reset the part
     {
         rigid.velocity = Vector3.zero;
         this.transform.localEulerAngles = Vector3.zero;
         transform.position = firstPosition;
+        rigid.isKinematic = true;
         magnetField = false;
         anim.SetBool("catched", false);
 

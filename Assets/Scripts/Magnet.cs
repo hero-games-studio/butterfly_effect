@@ -62,7 +62,7 @@ public class Magnet : MonoBehaviour
 
         if (Input.touchCount > 0 && speed!=0)
         {
-            //move();
+            move();
             
         }
         rigid.AddForce(Vector3.forward * speed, ForceMode.Impulse);
@@ -90,7 +90,7 @@ public class Magnet : MonoBehaviour
     {
 
          if(speed!=0)
-            transform.Translate(Input.GetAxisRaw("Horizontal") / 40, Input.GetAxisRaw("Vertical") / 40, 0);
+            transform.Translate(Input.GetAxisRaw("Horizontal") / 40, Input.GetAxisRaw("Vertical") / 40, 0,Space.World);
 
     }
 
@@ -112,23 +112,25 @@ public class Magnet : MonoBehaviour
 
     IEnumerator clearNet()//rotate net to clear the net end of the each part
     {
-        for (int i = 0; i < 15; i++)
-        {
-
-            transform.localEulerAngles = new Vector3(-i * 6, 0, 0);
-
-            yield return null;
-        }
-        transform.localEulerAngles = new Vector3(-90, 0, 0);
-        yield return new WaitForSeconds(0.5f);
         for (int i = 15; i > 0; i--)
         {
 
-            transform.localEulerAngles = new Vector3(-i * 6, 0, 0);
+            transform.localEulerAngles = new Vector3(i * 6, 0, 180);
 
             yield return null;
         }
-        transform.localEulerAngles = new Vector3(0, 0, 0);
+        transform.localEulerAngles = new Vector3(0, 0, 180);
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < 15; i++)
+        {
+
+            transform.localEulerAngles = new Vector3(i * 6, 0, 180);
+
+            yield return null;
+        }
+        transform.localEulerAngles = new Vector3(90, 0, 180);
+
+      
     }
 
     private void OnTriggerEnter(Collider coll)
@@ -232,7 +234,7 @@ public class Magnet : MonoBehaviour
 
     public void restartScale()
     {
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = new Vector3(0.0875f, 0.0875f, 0.0875f);
         cam.fieldOfView = 60;
     }
     #endregion

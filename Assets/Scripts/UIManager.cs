@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
 {
     #region Variables
     [SerializeField] private TextMeshProUGUI sizeUpText;
-    //[SerializeField] private Text overLevelText;
     [SerializeField] private TextMeshProUGUI overLevelText;
     #endregion
 
@@ -36,6 +35,7 @@ public class UIManager : MonoBehaviour
     {
         overLevelText.gameObject.SetActive(toggle);
     }
+
 
     #endregion
 }

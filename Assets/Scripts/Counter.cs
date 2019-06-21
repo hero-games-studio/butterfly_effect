@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 //Counter in the final hole
 public class Counter : MonoBehaviour
 {
@@ -8,10 +8,11 @@ public class Counter : MonoBehaviour
     [SerializeField] private int goal, perfectGoal;
     [SerializeField] private int count;
     [SerializeField] private int objectCount;
+    [SerializeField] private ParticleSystem sunshine;
 
     private bool perfectControl;
 
-    [SerializeField] private TextMesh countText;
+    [SerializeField] private TextMeshPro countText;
 
     [SerializeField] private float time, timeScale;
 
@@ -59,7 +60,6 @@ public class Counter : MonoBehaviour
         }
 
         countText.text = count + "/" + goal;
-
         if (count >= goal && !anim.GetBool("Gate") && goal > 0)//control goal
         {
             success();
@@ -112,7 +112,8 @@ public class Counter : MonoBehaviour
         nextPart();
         magnet.goOn();
         uiManager.toggleOverLevelText(false);
-            
+        uiManager.setOverLevelText("");
+
     }
 
     private void OnTriggerEnter(Collider coll)//count the object in the final hole
@@ -125,6 +126,7 @@ public class Counter : MonoBehaviour
 
     void perfect()//over perfect
     {
+        sunshine.Play();
         perfectParticleEffect.Play();
     }
 

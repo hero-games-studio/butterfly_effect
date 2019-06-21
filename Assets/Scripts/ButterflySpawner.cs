@@ -58,21 +58,25 @@ public class ButterflySpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfButterfly; i++)
         {
+            Vector3 position;
             if (i == 0)
             {
-                Vector3 position = randomFirstButterflyPosition();
+                position = randomFirstButterflyPosition();
                 //butterflies[i] = spawnButterfly(position);
                 butterflies[i].transform.position = position;
             }
             else
             {
-                Vector3 position = randomButterflyPosition(previousButterflyPosition.x, previousButterflyPosition.y, (i * space) + butterflyOffsetZ);
+                position = randomButterflyPosition(previousButterflyPosition.x, previousButterflyPosition.y, (i * space) + butterflyOffsetZ);
                 //butterflies[i] = spawnButterfly(position);
                 butterflies[i].transform.position = position;
             }
+            Objects butterflyObject = butterflies[i].GetComponent<Objects>();
             previousButterflyPosition = butterflies[i].transform.position;
             butterflies[i].transform.SetParent(this.transform);
             butterflies[i].SetActive(true);
+            butterflyObject.setParentName();
+            butterflyObject.setFirstPosition(butterflies[i].transform.position);
         }
         
     }
