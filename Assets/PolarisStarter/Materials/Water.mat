@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
   m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
-  m_ShaderKeywords: _GLOSSINESS_FROM_BASE_ALPHA _SPECULAR_COLOR
+  m_ShaderKeywords: _GLOSSINESS_FROM_BASE_ALPHA _RECEIVE_SHADOWS_OFF _SPECULAR_COLOR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -94,7 +94,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _SampleGI: 0
     - _Shininess: 0
     - _Smoothness: 0
@@ -107,7 +107,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.95862055, b: 1, a: 0}
+    - _BaseColor: {r: 0.4056604, g: 0.09723279, b: 0, a: 0}
     - _Color: {r: 0, g: 0.95862055, b: 1, a: 0.5019608}
     - _EmissionColor: {r: 0.20588237, g: 0.20588237, b: 0.20588237, a: 1}
-    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _SpecColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0.5}
