@@ -14,6 +14,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int currentPart;
     [SerializeField] private int currentLevel;
 
+    [SerializeField] private UIManager uiManager;
+
     #endregion
 
     #region Functions
@@ -21,7 +23,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         currentPart = 0;
-        currentLevel = 0;
+        currentLevel = 1;
     }
 
     private void transformPart(int part)
@@ -36,12 +38,12 @@ public class StageManager : MonoBehaviour
         blocks[part].transform.position = new Vector3(pos.x, pos.y, pos.z + 42);
         butterflySpawner[part].nextPart();
 
-       
+
     }
 
     public void nextPart()
     {
-   
+
         transformPart(currentPart);
         currentPart++;
         if (currentPart == 3)
@@ -50,6 +52,12 @@ public class StageManager : MonoBehaviour
             currentLevel++;
             currentPart = 0;
         }
+    }
+
+    private void Update()
+    {
+        uiManager.setCurrentLevetText((currentLevel).ToString());
+        uiManager.setNextLevetText((currentLevel + 1).ToString());
     }
 
     #endregion

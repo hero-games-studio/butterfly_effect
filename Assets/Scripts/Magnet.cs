@@ -235,7 +235,7 @@ public class Magnet : MonoBehaviour
     public void restartScale()
     {
         transform.localScale = new Vector3(0.0875f, 0.0875f, 0.0875f);
-        cam.fieldOfView = 60;
+        cam.fieldOfView = 70;
     }
     #endregion
 }

@@ -9,6 +9,10 @@ public class UIManager : MonoBehaviour
     #region Variables
     [SerializeField] private TextMeshProUGUI sizeUpText;
     [SerializeField] private TextMeshProUGUI overLevelText;
+    [SerializeField] private TextMeshProUGUI currentLevelText;
+    [SerializeField] private TextMeshProUGUI nextLevelText;
+
+    public TextMeshProUGUI debug;
     #endregion
 
     #region Functions
@@ -31,11 +35,24 @@ public class UIManager : MonoBehaviour
         overLevelText.text = text;
     }
 
+    public void setCurrentLevetText(string text)
+    {
+        currentLevelText.text = text;
+    }
+
+    public void setNextLevetText(string text)
+    {
+        nextLevelText.text = text;
+    }
+
     public void toggleOverLevelText(bool toggle)
     {
         overLevelText.gameObject.SetActive(toggle);
     }
 
-
+    private void Update()
+    {
+        debug.text = Camera.main.fieldOfView.ToString();
+    }
     #endregion
 }

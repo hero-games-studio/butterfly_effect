@@ -69,11 +69,12 @@ public class Counter : MonoBehaviour
             perfectControl = true;
             perfect();
         }
+
     }
 
     void success()//over successfully
     {
-        Handheld.Vibrate();
+       // Handheld.Vibrate();
 
         uiManager.toggleOverLevelText(true);
 
