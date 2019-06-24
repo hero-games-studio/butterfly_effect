@@ -106,7 +106,7 @@ public class Objects : MonoBehaviour {
         }
         if (coll.gameObject.tag == "CatchArea" && magnetField)
         {
-            rigid.velocity = magnet.GetComponent<Magnet>().getVelocity();
+           // rigid.velocity = magnet.GetComponent<Magnet>().getVelocity();
         }
     }
     
