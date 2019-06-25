@@ -62,12 +62,12 @@ public class Counter : MonoBehaviour
         countText.text = count + "/" + goal;
         if (count >= goal && !anim.GetBool("Gate") && goal > 0)//control goal
         {
+            magnet.setSuccess(true);
             success();
         }
         if (perfectGoal <= count && !perfectControl)//control perfect
         {
             perfectControl = true;
-            perfect();
         }
 
     }
@@ -78,18 +78,11 @@ public class Counter : MonoBehaviour
 
         uiManager.toggleOverLevelText(true);
 
-        for (int i = 0; i < successParticleEffect.Length; i++)
-        {
-
-            successParticleEffect[i].Play();
-
-        }
-
         anim.SetBool("Gate", true);
 
         magnet.countPart();
 
-        Invoke("waitAllBalls",0.2f);
+        Invoke("waitAllBalls",0.5f);
 
         Invoke("goOn", 2.0f);//call goOn() after 2 seconds
 
@@ -101,10 +94,17 @@ public class Counter : MonoBehaviour
         if (perfectControl)
         {
             uiManager.setOverLevelText("Perfect!");
+            perfect();
         }
         else
         {
             uiManager.setOverLevelText("Successfully Completed!");
+        }
+        for (int i = 0; i < successParticleEffect.Length; i++)
+        {
+
+            successParticleEffect[i].Play();
+
         }
     }
 
@@ -157,13 +157,14 @@ public class Counter : MonoBehaviour
 
     void nextPart()
     {
+        anim.SetBool("Gate", false);
+        anim.SetBool("InTrap", false);
         int randomCount = Random.Range(3,10);
         setObjectCount(randomCount);
         stageManager.nextPart();
         count = 0;
         time = 0;
         timeScale = 0;
-        anim.SetBool("Gate", false);
         perfectControl = false;
         butterflySpawner.setButterflies(randomCount);
         butterflySpawner.generateButterflyPositions(randomCount);
@@ -171,7 +172,7 @@ public class Counter : MonoBehaviour
 
     void restartPart()//to reset the part
     {
-        string parentName = transform.root.gameObject.name;
+        string parentName = transform.parent.name;  
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Butterfly");
         for (int i = 0; i < objects.Length; i++)
         {

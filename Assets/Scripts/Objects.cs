@@ -18,6 +18,7 @@ public class Objects : MonoBehaviour {
 
     [SerializeField] GameObject magnet;
     [SerializeField] GameObject magnetFieldObject;
+    [SerializeField] Magnet magnetScript;
 
     [SerializeField] GameObject pointPrefab;
 
@@ -51,7 +52,7 @@ public class Objects : MonoBehaviour {
 
         rigid.velocity = Vector3.zero;
 
-        parentName = transform.parent.transform.parent.name;
+        parentName = transform.parent.transform.parent.gameObject.name;
 
         firstPosition = transform.position;
 
@@ -60,10 +61,10 @@ public class Objects : MonoBehaviour {
 
     void Update()
     {
-        if (finish)//going to counter
+        if (finish && magnetScript.getSuccess() == true)//going to counter
         {
             rigid.velocity = Vector3.zero;
-            transform.Translate(0, Time.deltaTime * speed, 0, Space.World);
+            transform.Translate(0, Time.deltaTime * speed, Time.deltaTime * speed*1.2f, Space.World);
         }
     }
 
@@ -83,8 +84,9 @@ public class Objects : MonoBehaviour {
             rigid.velocity = Vector3.zero;
             Invoke("setFinish", 0.5f);
         }
-        if (coll.gameObject.name == "Counter")
+        if (coll.gameObject.tag == "stop")
         {
+            Debug.Log("Stop");
             finish = false;
             rigid.isKinematic = true;
         }
@@ -127,7 +129,7 @@ public class Objects : MonoBehaviour {
 
     public void setParentName()
     {
-        parentName= transform.root.gameObject.name;
+        parentName= transform.parent.transform.parent.gameObject.name;
     }
 
     void setFinish()
@@ -155,7 +157,10 @@ public class Objects : MonoBehaviour {
         magnetField = false;
         anim.SetBool("catched", false);
 
+        finish = false;
     }
+
+
 
     void magnetEffect()
     {

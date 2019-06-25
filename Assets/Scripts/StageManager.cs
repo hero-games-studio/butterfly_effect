@@ -16,6 +16,8 @@ public class StageManager : MonoBehaviour
 
     [SerializeField] private UIManager uiManager;
 
+    [SerializeField] private Vector3 shitVector=new Vector3(0,0,42);
+
     #endregion
 
     #region Functions
@@ -26,25 +28,26 @@ public class StageManager : MonoBehaviour
         currentLevel = 1;
     }
 
-    private void transformPart(int part)
+    IEnumerator transformPart(int part)
     {
+        yield return new WaitForSeconds(1);
+
         if (part == 3)
         {
             part = 0;
         }
-
-        Debug.Log("transformPart(" + part + ")");
-        Vector3 pos = blocks[part].transform.position;
-        blocks[part].transform.position = new Vector3(pos.x, pos.y, pos.z + 42);
+      
+        Vector3 pos = blocks[part].transform.position+shitVector;
+        blocks[part].transform.position = pos;
         butterflySpawner[part].nextPart();
 
-
+        yield return null;
     }
 
     public void nextPart()
     {
-
-        transformPart(currentPart);
+  
+        StartCoroutine(transformPart(currentPart));
         currentPart++;
         if (currentPart == 3)
         {

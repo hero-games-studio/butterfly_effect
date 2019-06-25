@@ -8,6 +8,7 @@ public class Ground : MonoBehaviour
     Counter counter;
     private int objectCount;
     float time;
+    [SerializeField] Animator anim;
     private void Start()
     {
         objectCount = 0;
@@ -27,6 +28,10 @@ public class Ground : MonoBehaviour
         if (coll.gameObject.tag == "Butterfly" && time <= 3)
         {
             counter.setObjectCount(++objectCount);
+        }
+        if (coll.gameObject.tag == "Magnet")
+        {
+            anim.SetBool("InTrap", true);
         }
     }
 

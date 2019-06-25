@@ -12,6 +12,7 @@ public class Magnet : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] float speedDefaultValue;
+    [SerializeField] float speed;
     [SerializeField] float sensitivity = 1.5f;//for mobile
     [SerializeField] float sizeUpValue = 0.00625f;
     [SerializeField] float fieldOfViewUpValue = 0.1f;
@@ -19,10 +20,10 @@ public class Magnet : MonoBehaviour
     [SerializeField] float camOffsetZ = -7.0f;
     [SerializeField] float netPosY = 0.4f;
     [SerializeField] float camPosY = 1.0f;
-
+    [SerializeField] float speedUpValue = 0.01f;
     [SerializeField] Vector2[] bound = { new Vector2(-0.5f, -0.2f), new Vector2(0.375f, 2.2f) };
     [SerializeField] Vector2[] boundViewportPoint = { new Vector2(0.0f, 0.0f), new Vector2(1f, 1f) };
-    float speed;
+   
 
     private int partCounter;//counting part
 
@@ -40,6 +41,8 @@ public class Magnet : MonoBehaviour
     [SerializeField] UIManager uiManager;
     [SerializeField] SceneManagementManager sceneManager;
 
+    private bool succesPart;
+
     #endregion
 
     #region Functions
@@ -54,6 +57,10 @@ public class Magnet : MonoBehaviour
 
         partCounter = 0;
         point = 0;
+
+        succesPart = false;
+
+        StartCoroutine(speedUp());
     }
 
     private void FixedUpdate()
@@ -66,7 +73,7 @@ public class Magnet : MonoBehaviour
             
         }
         rigid.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-        //transform.Translate(Vector3.forward * speed * Time.smoothDeltaTime);
+
         camObject.transform.position = new Vector3(camObject.transform.position.x, camObject.transform.position.y, transform.position.z - 2);
 
         velocity = (transform.position - lastPosition) / Time.deltaTime;
@@ -110,6 +117,23 @@ public class Magnet : MonoBehaviour
         uiManager.toggleSizeUpText(false);
     }
 
+    IEnumerator speedUp()
+    {//Size up effect
+
+        speed=0;
+
+        yield return new WaitForSeconds(1);
+
+        for (int i = 0; i < 50; i++)
+        {
+
+            speed += speedUpValue;
+            yield return null;
+        }
+
+        uiManager.toggleSizeUpText(false);
+    }
+
     IEnumerator clearNet()//rotate net to clear the net end of the each part
     {
         for (int i = 15; i > 0; i--)
@@ -137,8 +161,13 @@ public class Magnet : MonoBehaviour
     {
         if (coll.gameObject.tag == "Finish")
         {
-            StartCoroutine(clearNet());
+            if(succesPart)
+                StartCoroutine(clearNet());
             wait();
+        }
+        if (coll.gameObject.tag == "Ground")
+        {
+            succesPart = false;
         }
     }
 
@@ -176,25 +205,6 @@ public class Magnet : MonoBehaviour
         {
             this.transform.position = cam.ViewportToWorldPoint(new Vector3(targetPosition.x, boundViewportPoint[1].y, targetPosition.z+ offset));
         }
-        /*
-        if (this.transform.position.x > bound[1].x)
-        {
-            this.transform.position = new Vector3(0.375f, transform.position.y, transform.position.z);
-        }
-        else if (this.transform.position.x < bound[0].x)
-        {
-            this.transform.position = new Vector3(-0.5f, transform.position.y, transform.position.z);
-        }
-
-        if (this.transform.position.y < bound[0].y)
-        {
-            this.transform.position = new Vector3(transform.position.x, -0.2f, transform.position.z);
-        }
-        else if (this.transform.position.y > bound[1].y)
-        {
-            this.transform.position = new Vector3(transform.position.x, 2.2f, transform.position.z);
-        }
-        */
     }
 
     void move()//Mobile control
@@ -223,6 +233,16 @@ public class Magnet : MonoBehaviour
     public void getPoint()
     {
         point++;
+    }
+
+    public void setSuccess(bool success)
+    {
+        succesPart = success;
+    }
+
+    public bool getSuccess()
+    {
+        return succesPart;
     }
 
     public void restartPart()//to reset the part

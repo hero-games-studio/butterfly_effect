@@ -96,8 +96,9 @@ public class ButterflySpawner : MonoBehaviour
     { //random position based on previous butterfly position
         float randomX = Random.Range(randomLowerLimit, randomUpperLimit);
         float randomY = Random.Range(randomLowerLimit, randomUpperLimit);
-        float parentZ = transform.parent.position.z;
+        float parentZ = transform.parent.transform.parent.position.z;
 
+        Debug.Log(parentZ);
         if (xPos + randomX < boundry[0].x || xPos + randomX > boundry[1].x)
         {
             randomX = -randomX;
@@ -117,7 +118,7 @@ public class ButterflySpawner : MonoBehaviour
 
         float randomX = Random.Range(firstButterFlyRandomLowerLimitX, firstButterFlyRandomUpperLimitX);
         float randomY = Random.Range(firstButterFlyRandomLowerLimitY, firstButterFlyRandomUpperLimitY);
-        float parentZ = transform.parent.position.z;
+        float parentZ = transform.parent.transform.parent.position.z;
 
         Vector3 butterflyPosition = new Vector3(randomX, randomY, parentZ + butterflyOffsetZ);
 
@@ -127,6 +128,7 @@ public class ButterflySpawner : MonoBehaviour
 
     public void nextPart()
     {
+        Debug.Log("aa");
         objectPoolManager.addElementToList(butterfliesArray);
         for (int i=0; i<butterfliesArray.Length; i++)
         {

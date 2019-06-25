@@ -14,6 +14,8 @@ TagManager:
   - Butterfly
   - handle
   - CatchArea
+  - Effects
+  - stop
   layers:
   - Default
   - TransparentFX
