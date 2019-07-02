@@ -53,7 +53,7 @@ public class Counter : MonoBehaviour
 
         time += Time.deltaTime * timeScale;
         //waiting to balls reach the finish hole
-        if (time > 5 && count < goal)//control goal
+        if (time > 3 && count < goal)//control goal
         {
             time = timeScale = 0;
             restartPart();
