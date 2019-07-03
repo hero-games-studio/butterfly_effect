@@ -4,18 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Back
-  - Right
-  - Left
-  - Object
-  - MagnetField
-  - Ground
-  - Magnet
-  - Butterfly
-  - handle
-  - CatchArea
   - Effects
-  - stop
+  - jump
+  - duck
   layers:
   - Default
   - TransparentFX
@@ -25,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 
