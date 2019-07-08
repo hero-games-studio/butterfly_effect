@@ -2,6 +2,7 @@
 {
 	Properties
 	{
+		_MainTex("Texture", 2D) = "white" {}
 		_MainColor("Color",Color)=(1,1,1,1)
 		_Curvature("Curvature",Float) = 0.001
 	}

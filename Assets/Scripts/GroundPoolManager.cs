@@ -19,6 +19,8 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
     [Header("Pools")]
     [SerializeField] List<GroundPool> pools;
     Dictionary<int, Queue<GameObject>> poolDictionary;
+    [SerializeField] GameObject GoldenButterflyGroundPrefab;
+    GameObject GoldenButterflyGround;
     #endregion
 
     #region Functions
@@ -38,7 +40,20 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
                 objectPool.Enqueue(ground);
             }
             poolDictionary.Add(pool.groundType, objectPool);
+
         }
+        GoldenButterflyGround = Instantiate(GoldenButterflyGroundPrefab);
+        GoldenButterflyGround.SetActive(false);
+    }
+
+    public GameObject spawnGround(Vector3 position)
+    {
+        GameObject ground = GoldenButterflyGround;
+
+        ground.SetActive(true);
+        ground.transform.position = position;
+
+        return ground;
     }
 
     public GameObject spawnGround(int groundType, Vector3 position)

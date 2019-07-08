@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundManager : MonoBehaviour
+public class GroundManager : MonoSingleton<GroundManager>
 {
     GroundPoolManager groundPoolManager;
 
@@ -13,21 +13,30 @@ public class GroundManager : MonoBehaviour
 
     private void Start()
     {
-        groundPoolManager = GroundPoolManager.Instance;
-
         nextGroundPosition = nextGroundOffsetZ;
-
-        groundSpawn();
     }
 
-    void groundSpawn()
+    private void Awake()
     {
-        int type = Random.Range(0, 12);
+        groundPoolManager = GroundPoolManager.Instance;
+    }
 
-        groundPoolManager.spawnGround(type, nextGroundPosition);
+    public void groundSpawn(int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            if (number / 2 == i)
+            {
+                groundPoolManager.spawnGround(nextGroundPosition);
+            }
+            else
+            {
+                int type = Random.Range(0,12);
 
-        nextGroundPosition += nextGroundOffsetZ;
+                groundPoolManager.spawnGround(type, nextGroundPosition);
+            }
+            nextGroundPosition += nextGroundOffsetZ;
 
-        Invoke("groundSpawn", 1);
+        }
     }
 }

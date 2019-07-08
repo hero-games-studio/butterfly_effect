@@ -9,6 +9,9 @@ public class Player
     private int level;
     private int butterflyCount;
     private int coins;
+    private Vector3 position;
+
+    private Vector3 velocity;
 
     private static Player player;
 
@@ -52,6 +55,17 @@ public class Player
         }
         return player;
     }
+
+    public Vector3 getPosition()
+    {
+        return this.position;
+    }
+
+    public Vector3 getVelocity()
+    {
+        return this.velocity;
+    }
+
     #endregion
 
     #region Set Functions
@@ -61,7 +75,7 @@ public class Player
         this.level = level;
     }
 
-    public void setCoiıns(int coins)
+    public void setCoins(int coins)
     {
         this.coins = coins;
     }
@@ -69,6 +83,16 @@ public class Player
     public void setButterflyCount(int butterflyCount)
     {
         this.butterflyCount = butterflyCount;
+    }
+
+    public void setPosition(Vector3 position)
+    {
+        this.position = position;
+    }
+
+    public void setVelocity(Vector3 velocity)
+    {
+        this.velocity = velocity;
     }
 
     #endregion

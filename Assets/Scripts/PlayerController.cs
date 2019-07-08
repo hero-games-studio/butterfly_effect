@@ -7,18 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
 
-    [Header("Animation Components")]
-    [SerializeField] private Animator anim;
-
-    [Header("Camera Components")]
-    [SerializeField] private Camera cam;
-
     [Header("Physics Components")]
     [SerializeField] private Rigidbody rigid;
 
     [Header("Movement Variables")]
-    [Range(0.001f, 0.1f)] [SerializeField] private float touchSensitivity = 0.1f;
-    [Range(0.1f, 1.0f)] [SerializeField] private float keySensitivity = 0.1f;
     [Range(1, 50)] [SerializeField] private float speed = 2.5f;
     [SerializeField] private float positionRightLimit = 3.0f;
     [SerializeField] private float positionLeftLimit = -3.0f;
@@ -54,8 +46,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 startPosition = Vector2.zero;
 
     Player player;
+    StageManager stageManager;
 
     Vector3 defaultPosition;
+
 
     #endregion
 
@@ -64,10 +58,15 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         player = Player.getInstance();
+        stageManager = StageManager.Instance;
 
         defaultPosition = transform.position;
 
         currentLine = 0;
+    }
+
+    private void Start()
+    {
     }
 
     private void FixedUpdate()
@@ -112,7 +111,7 @@ public class PlayerController : MonoBehaviour
                     startPosition = touch.position;
                     startTime = Time.time;
                     break;
-                case TouchPhase.Ended:
+                case TouchPhase.Moved:
                     Vector3 positionDelta = (Vector2)touch.position - startPosition;
 
                     float timeDifference = Time.time - startTime;
@@ -144,8 +143,10 @@ public class PlayerController : MonoBehaviour
                             {
                                 command(leftCommand);
                             }
+                           
                         }
                     }
+                    startTime = 0;
                     break;
             }
         }
@@ -168,6 +169,7 @@ public class PlayerController : MonoBehaviour
     void run()
     {
         rigid.AddForce(Vector3.forward * speed);
+        player.setVelocity(rigid.velocity);
     }
 
     void controlVelocity()
@@ -212,11 +214,13 @@ public class PlayerController : MonoBehaviour
                 if (currentLine != 2)
                     currentLine++;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
+                 player.setPosition(transform.position);
                 break;
             case "left":
                 if (currentLine != 0)
                     currentLine--;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
+                 player.setPosition(transform.position);
                 break;
             case "jump":
                 StartCoroutine(jump());
@@ -226,6 +230,21 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+    }
+
+    public Vector3 getVelocity(){
+        return rigid.velocity;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Golden")
+        {
+            stageManager.touchGoldenGround();
+        }
+        if(other.gameObject.tag== "GoldenButterfly"){
+            stageManager.stopRoutines();
+        }
     }
 
     #endregion

@@ -7,6 +7,10 @@ TagManager:
   - Effects
   - jump
   - duck
+  - Golden
+  - Butterfly
+  - GoldenButterfly
+  - Obstacle
   layers:
   - Default
   - TransparentFX
