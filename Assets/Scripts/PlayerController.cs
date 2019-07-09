@@ -47,9 +47,10 @@ public class PlayerController : MonoBehaviour
 
     Player player;
     StageManager stageManager;
-
+    GroundManager groundManager;
+    private int currentGround;
     Vector3 defaultPosition;
-
+    float coolDown;
 
     #endregion
 
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         player = Player.getInstance();
         stageManager = StageManager.Instance;
+        groundManager = GroundManager.Instance;
 
         defaultPosition = transform.position;
 
@@ -69,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        currentGround = 0;
+        coolDown=0;
     }
 
     private void FixedUpdate()
@@ -95,6 +99,8 @@ public class PlayerController : MonoBehaviour
         {
             command(rightCommand);
         }
+
+        coolDown -= Time.deltaTime;
 
         player.setCurrentLine(currentLine);
         player.setPosition(transform.position);

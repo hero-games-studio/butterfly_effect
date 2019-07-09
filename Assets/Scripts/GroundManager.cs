@@ -10,6 +10,10 @@ public class GroundManager : MonoSingleton<GroundManager>
 
     [Header("Variables")]
     [SerializeField] private Vector3 nextGroundOffsetZ = new Vector3(0, 0, 50);
+    private Vector3 stepVector = new Vector3(0, 0, 400);
+
+    [SerializeField] private GameObject[] groundArray;
+
 
     private void Start()
     {
@@ -19,6 +23,12 @@ public class GroundManager : MonoSingleton<GroundManager>
     private void Awake()
     {
         groundPoolManager = GroundPoolManager.Instance;
+    }
+
+    public IEnumerator moveGround(int value)
+    {
+        yield return new WaitForSeconds(0.5f);
+        groundArray[value].transform.position += stepVector;
     }
 
     public void groundSpawn(int number)
@@ -31,7 +41,7 @@ public class GroundManager : MonoSingleton<GroundManager>
             }
             else
             {
-                int type = Random.Range(0,12);
+                int type = Random.Range(0, 12);
 
                 groundPoolManager.spawnGround(type, nextGroundPosition);
             }

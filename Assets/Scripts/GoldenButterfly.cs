@@ -125,7 +125,7 @@ public class GoldenButterfly : Butterfly
             }
             else
             {
-                force = 1f;
+                force = 0.25f;
                 tempraryVelocity.z = player.getVelocity().z +force;
                 
             }
