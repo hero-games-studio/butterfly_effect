@@ -9,6 +9,7 @@ public class Player
     private int level;
     private int butterflyCount;
     private int coins;
+    private int currentLine;
     private Vector3 position;
 
     private Vector3 velocity;
@@ -66,6 +67,10 @@ public class Player
         return this.velocity;
     }
 
+    public int getCurrentLine()
+    {
+        return currentLine;
+    }
     #endregion
 
     #region Set Functions
@@ -93,6 +98,11 @@ public class Player
     public void setVelocity(Vector3 velocity)
     {
         this.velocity = velocity;
+    }
+
+    public void setCurrentLine(int currentLine)
+    {
+        this.currentLine = currentLine;
     }
 
     #endregion

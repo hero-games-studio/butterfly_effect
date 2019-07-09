@@ -6,8 +6,6 @@ using DG.Tweening;
 public class GoldenButterfly : Butterfly
 {
     #region Variables
-    Vector3 sameLineVelocityOffset = new Vector3(0, 0, -3);
-    Vector3 differentLineVelocityOffset = new Vector3(0, 0, 2);
 
     Player player;
 
@@ -16,8 +14,11 @@ public class GoldenButterfly : Butterfly
     float lowerPositionY = 1;
     float coolDownCountDownValue = 0.5f;
     float coolDownDefaultValue = 500;
-    float distanceLimitValue = 1.75f;
+    float distanceLimitValue = 0;
     float moveYDuration = 0.5f;
+    float force;
+
+    int currentLine;
 
     Rigidbody rigid;
     #endregion
@@ -33,6 +34,7 @@ public class GoldenButterfly : Butterfly
     private void Start()
     {
         coolDown = 500;
+        currentLine = 1;
     }
 
     private void drawRays()
@@ -48,18 +50,7 @@ public class GoldenButterfly : Butterfly
         Debug.DrawLine(origin, directionForward, Color.red, 25);
 
 
-        if (hitForward && hit.collider.gameObject.tag == "Butterfly")
-        {
-            if (transform.position.y == upperPositionY)
-            {
-                StartCoroutine(goDown());
-            }
-            else if (transform.position.y == lowerPositionY)
-            {
-                StartCoroutine(goUp());
-            }
-        }
-        if (hitForward && hit.collider.gameObject.tag == "Obstacle")
+        if (hitForward && (hit.collider.gameObject.tag == "Butterfly" || hit.collider.gameObject.tag == "Obstacle"))
         {
             if (transform.position.y == upperPositionY)
             {
@@ -75,7 +66,7 @@ public class GoldenButterfly : Butterfly
 
             if (!hitForward)
             {
-                if (transform.position.x == 0)
+                if (transform.position.x == 0)//middle
                 {
                     int randomValue = Random.Range(0, 3);
                     Debug.Log(randomValue);
@@ -107,24 +98,39 @@ public class GoldenButterfly : Butterfly
 
     public IEnumerator fly()
     {
+        transform.SetParent(null);
+
         while (true)
         {
             drawRays();
-            Vector3 playerPosition = player.getPosition();
 
             coolDown -= coolDownCountDownValue;
-            Debug.Log(coolDown);
-            float distance = playerPosition.x - transform.localPosition.x;
-            distance = Mathf.Abs(distance);
 
-            if (distance > distanceLimitValue)
+            Vector3 tempraryVelocity = rigid.velocity;
+
+            float distanceZ = transform.localPosition.z - player.getPosition().z;
+            Debug.Log("Distance = " + distanceZ);
+            if (currentLine == player.getCurrentLine())
             {
-                rigid.velocity = player.getVelocity() + sameLineVelocityOffset;
+                if (distanceZ > 20)
+                {
+                    force = 1;
+                }
+                else
+                {
+                    force += Time.deltaTime;
+                }
+
+                tempraryVelocity.z = player.getVelocity().z - force;
             }
             else
             {
-                rigid.velocity = player.getVelocity() + differentLineVelocityOffset;
+                force = 0.5f;
+                tempraryVelocity.z = player.getVelocity().z +force;
+                
             }
+
+            rigid.velocity = tempraryVelocity;
 
             yield return new WaitForFixedUpdate();
         }
@@ -132,30 +138,31 @@ public class GoldenButterfly : Butterfly
 
     private IEnumerator goDown()
     {
-        transform.DOLocalMoveY(lowerPositionY, moveYDuration, false);
-        yield return null;
+        rigid.DOMoveY(lowerPositionY, moveYDuration, false);
+        yield return new WaitForSeconds(1);
+        rigid.DOMoveY(upperPositionY, moveYDuration, false);
     }
 
     private IEnumerator goUp()
     {
-        transform.DOLocalMoveY(upperPositionY, moveYDuration, false);
+        rigid.DOMoveY(upperPositionY, moveYDuration, false);
         yield return null;
     }
 
     private IEnumerator goLeft()
     {
-        Debug.Log("left");
+        currentLine = 0;
         distanceLimitValue = 0;
-        transform.DOLocalMoveX(-2.75f, moveYDuration, false);
+        rigid.DOMoveX(-2.75f, moveYDuration, false);
         yield return new WaitForSeconds(moveYDuration + 1);
         distanceLimitValue = 1.75f;
     }
 
     private IEnumerator goRight()
     {
-        Debug.Log("right");
+        currentLine = 2;
         distanceLimitValue = 0;
-        transform.DOLocalMoveX(2.75f, moveYDuration, false);
+        rigid.DOMoveX(2.75f, moveYDuration, false);
         yield return new WaitForSeconds(moveYDuration + 1);
         distanceLimitValue = 1.75f;
 
@@ -163,15 +170,11 @@ public class GoldenButterfly : Butterfly
 
     private IEnumerator goMiddle()
     {
+        currentLine = 1;
         distanceLimitValue = 0;
-        transform.DOLocalMoveX(0, moveYDuration, false);
+        rigid.DOMoveX(0, moveYDuration, false);
         yield return new WaitForSeconds(moveYDuration + 1);
         distanceLimitValue = 1.75f;
     }
-
     #endregion
-
-
-
-
 }

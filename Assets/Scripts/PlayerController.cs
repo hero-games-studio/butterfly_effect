@@ -62,7 +62,9 @@ public class PlayerController : MonoBehaviour
 
         defaultPosition = transform.position;
 
-        currentLine = 0;
+        currentLine = 1;
+
+        player.setCurrentLine(currentLine);
     }
 
     private void Start()
@@ -94,6 +96,8 @@ public class PlayerController : MonoBehaviour
             command(rightCommand);
         }
 
+        player.setCurrentLine(currentLine);
+        player.setPosition(transform.position);
         run();
         movement();
     }
@@ -143,7 +147,7 @@ public class PlayerController : MonoBehaviour
                             {
                                 command(leftCommand);
                             }
-                           
+
                         }
                     }
                     startTime = 0;
@@ -214,13 +218,13 @@ public class PlayerController : MonoBehaviour
                 if (currentLine != 2)
                     currentLine++;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
-                 player.setPosition(transform.position);
+                player.setPosition(transform.position);
                 break;
             case "left":
                 if (currentLine != 0)
                     currentLine--;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
-                 player.setPosition(transform.position);
+                player.setPosition(transform.position);
                 break;
             case "jump":
                 StartCoroutine(jump());
@@ -228,11 +232,13 @@ public class PlayerController : MonoBehaviour
             case "duck":
                 StartCoroutine(duck());
                 break;
+
         }
 
     }
 
-    public Vector3 getVelocity(){
+    public Vector3 getVelocity()
+    {
         return rigid.velocity;
     }
 
@@ -242,7 +248,8 @@ public class PlayerController : MonoBehaviour
         {
             stageManager.touchGoldenGround();
         }
-        if(other.gameObject.tag== "GoldenButterfly"){
+        if (other.gameObject.tag == "GoldenButterfly")
+        {
             stageManager.stopRoutines();
         }
     }
