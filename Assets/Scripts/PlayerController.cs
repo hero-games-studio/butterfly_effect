@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Physics Components")]
     [SerializeField] private Rigidbody rigid;
+    [Header("Animator Components")]
+    [SerializeField] private Animator anim;
 
     [Header("Movement Variables")]
     [Range(1, 50)] [SerializeField] private float speed = 2.5f;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [Header("Duck Variables")]
     [SerializeField] private float duckDuration = 0.3f;
     [SerializeField] private float duckTime = 0.3f;
+    [SerializeField] private float swipeY=0.75f;
 
 
     [Header("Velocity Variables")]
@@ -41,6 +44,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string duckCommand = "duck";
     [SerializeField] private string rightCommand = "right";
     [SerializeField] private string leftCommand = "left";
+
+    [Header("Children")]
+    [SerializeField] private GameObject body;
 
     private Touch touch = default(Touch);
     private Vector2 startPosition = Vector2.zero;
@@ -72,7 +78,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         currentGround = 0;
-        coolDown=0;
+        coolDown = 0;
     }
 
     private void FixedUpdate()
@@ -164,16 +170,22 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator jump()
     {
+        anim.SetBool("Jump", true);
         transform.DOMoveY(line[currentLine].y, jumpDuration, false);
         yield return new WaitForSeconds(jumpTime);
+        anim.SetBool("Jump", false);
         transform.DOMoveY(defaultPosition.y, jumpDuration, false);
     }
 
     IEnumerator duck()
     {
-        transform.DOScaleY(0.25f, duckDuration);
+        anim.SetBool("Duck", true);
+        transform.DOMoveY(swipeY, duckDuration, false);
+        body.transform.DOScaleY(0.25f, duckDuration);
         yield return new WaitForSeconds(duckTime);
-        transform.DOScaleY(1f, duckDuration);
+        anim.SetBool("Duck", false);
+        transform.DOMoveY(defaultPosition.y, duckDuration, false);
+        body.transform.DOScaleY(1f, duckDuration);
     }
 
     void run()

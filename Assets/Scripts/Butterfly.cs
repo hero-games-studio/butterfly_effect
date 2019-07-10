@@ -10,7 +10,7 @@ public class Butterfly : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            anim.Play();
+            //anim.Play();
             this.gameObject.SetActive(false);
         }
     }

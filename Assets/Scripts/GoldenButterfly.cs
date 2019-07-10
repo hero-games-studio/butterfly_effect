@@ -10,7 +10,7 @@ public class GoldenButterfly : Butterfly
     Player player;
 
     float coolDown = 300;
-    float upperPositionY = 4;
+    float upperPositionY = 5;
     float lowerPositionY = 1;
     float coolDownCountDownValue = 0.5f;
     float coolDownDefaultValue = 500;
@@ -114,7 +114,7 @@ public class GoldenButterfly : Butterfly
             {
                 if (distanceZ > 20)
                 {
-                    force = 1;
+                    force = 1.5f;
                 }
                 else
                 {
