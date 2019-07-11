@@ -234,7 +234,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 3
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -242,8 +242,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.026844025
-        value: 0.27434492
+        time: 0
+        value: 0.75968933
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -251,8 +251,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
-        value: 0.6310387
+        time: 0.9899292
+        value: 0.8527069
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -5269,6 +5269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Butterfly
       objectReference: {fileID: 0}
+    - target: {fileID: 1185786894759419695, guid: 2dbcae9f13c406c468d7749f75677918,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 335150138483478053, guid: 2dbcae9f13c406c468d7749f75677918,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5338,11 +5343,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1185786894759419695, guid: 2dbcae9f13c406c468d7749f75677918,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1780839675563754085, guid: 2dbcae9f13c406c468d7749f75677918,
         type: 3}
@@ -5535,6 +5535,21 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
       value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 198348868280497180, guid: d33667b5938be3040bc48837dd6f71a0,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.99989635
+      objectReference: {fileID: 0}
+    - target: {fileID: 198348868280497180, guid: d33667b5938be3040bc48837dd6f71a0,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198348868280497180, guid: d33667b5938be3040bc48837dd6f71a0,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.995283
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d33667b5938be3040bc48837dd6f71a0, type: 3}

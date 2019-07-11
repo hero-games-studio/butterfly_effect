@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     Player player;
     StageManager stageManager;
     GroundManager groundManager;
+    UIManager uiManager;
     private int currentGround;
     Vector3 defaultPosition;
     float coolDown;
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
         player = Player.getInstance();
         stageManager = StageManager.Instance;
         groundManager = GroundManager.Instance;
+        uiManager = UIManager.Instance;
 
         defaultPosition = transform.position;
 
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
     {
         currentGround = 0;
         coolDown = 0;
+
+        uiManager.setActivePanel(false);
     }
 
     private void FixedUpdate()
@@ -176,7 +180,7 @@ public class PlayerController : MonoBehaviour
         if (!anim.GetBool("Jump"))
         {
             anim.SetBool("Jump", true);
-             anim.SetBool("Duck", false);
+            anim.SetBool("Duck", false);
             transform.DOMoveY(line[currentLine].y, jumpDuration, false);
             yield return new WaitForSeconds(jumpTime);
             transform.DOMoveY(defaultPosition.y, jumpDuration, false);
@@ -248,9 +252,12 @@ public class PlayerController : MonoBehaviour
                     currentLine++;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
                 player.setPosition(transform.position);
-                if(currentLine==2){
+                if (currentLine == 2)
+                {
                     camereMovement.goRight();
-                }else if(currentLine==1){
+                }
+                else if (currentLine == 1)
+                {
                     camereMovement.goMiddle();
                 }
                 break;
@@ -259,9 +266,12 @@ public class PlayerController : MonoBehaviour
                     currentLine--;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
                 player.setPosition(transform.position);
-                  if(currentLine==1){
+                if (currentLine == 1)
+                {
                     camereMovement.goMiddle();
-                }else if(currentLine==0)    {
+                }
+                else if (currentLine == 0)
+                {
                     camereMovement.goLeft();
                 }
                 break;
@@ -286,10 +296,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Golden")
         {
             stageManager.touchGoldenGround();
+
         }
         if (other.gameObject.tag == "GoldenButterfly")
         {
             stageManager.stopRoutines();
+            StartCoroutine(stageManager.slowMotion());
+            uiManager.setActivePanel(true);
         }
     }
 

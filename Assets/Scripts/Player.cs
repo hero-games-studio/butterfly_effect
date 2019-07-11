@@ -10,6 +10,7 @@ public class Player
     private int butterflyCount;
     private int coins;
     private int currentLine;
+    private bool isDead;
     private Vector3 position;
 
     private Vector3 velocity;
@@ -27,6 +28,8 @@ public class Player
         coins = 0;
         butterflyCount = 0;
         level = 1;
+
+        isDead = false;
     }
 
     #endregion
@@ -71,6 +74,11 @@ public class Player
     {
         return currentLine;
     }
+
+    public bool getIsDead()
+    {
+        return isDead;
+    }
     #endregion
 
     #region Set Functions
@@ -103,6 +111,11 @@ public class Player
     public void setCurrentLine(int currentLine)
     {
         this.currentLine = currentLine;
+    }
+
+    public void setIsDead(bool isDead)
+    {
+        this.isDead = isDead;
     }
 
     #endregion

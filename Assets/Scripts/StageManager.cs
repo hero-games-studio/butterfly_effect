@@ -18,9 +18,13 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Awake()
     {
+        if (PlayerPrefs.GetInt("Level") == 0)
+        {
+            PlayerPrefs.SetInt("Level",10);
+        }
         groundManager = GroundManager.Instance;
         Application.targetFrameRate = 60;
-        //currentLevel = 1;
+        //currentLevel = PlayerPrefs.GetInt("Level");
 
     }
 
@@ -28,6 +32,8 @@ public class StageManager : MonoSingleton<StageManager>
     {
         setStageDesign();
         goldenButterfly = GameObject.Find("GoldenButterfly").GetComponent<GoldenButterfly>();
+
+        normalMotion();
     }
 
 
@@ -36,8 +42,37 @@ public class StageManager : MonoSingleton<StageManager>
         groundManager.groundSpawn(currentLevel * 10);
     }
 
-    public void setLevel(int currentLevel){
-        this.currentLevel=currentLevel;
+    public void setLevel(int currentLevel)
+    {
+        this.currentLevel = currentLevel;
+    }
+
+    public void restart()
+    {
+
+    }
+
+    public IEnumerator slowMotion()
+    {
+
+        while (true)
+        {
+            Time.timeScale -= 0.01f;
+
+            if (Time.timeScale <= 0.01f)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+        Time.timeScale = 0.01f;
+
+    }
+
+    public void normalMotion()
+    {
+        Time.timeScale = 1;
     }
 
     public void touchGoldenGround()
@@ -50,7 +85,8 @@ public class StageManager : MonoSingleton<StageManager>
         goldenButterfly.StopAllCoroutines();
     }
 
-    public int getLevel(){
+    public int getLevel()
+    {
         return currentLevel;
     }
 

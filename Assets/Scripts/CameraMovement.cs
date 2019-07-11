@@ -27,12 +27,12 @@ public class CameraMovement : MonoBehaviour
 
     public void goRight()
     {
-        transform.DOMoveX(2, 0.5f, false);
+        transform.DOMoveX(2.5f, 0.5f, false);
     }
 
     public void goLeft()
     {
-        transform.DOMoveX(-2, 0.5f, false);
+        transform.DOMoveX(-2.5f, 0.5f, false);
     }
 
     public void goMiddle()
