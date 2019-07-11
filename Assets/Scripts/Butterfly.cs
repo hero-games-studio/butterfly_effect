@@ -5,13 +5,17 @@ using UnityEngine;
 public class Butterfly : MonoBehaviour
 {
     [SerializeField] Animation anim;
+    [SerializeField] GameObject body;
+
+    [SerializeField] ParticleSystem particle;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             //anim.Play();
-            this.gameObject.SetActive(false);
+            body.gameObject.SetActive(false);   
+            particle.Play();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -20,7 +21,23 @@ public class CameraMovement : MonoBehaviour
     private void FixedUpdate()
     {
         targetPosition.z = player.transform.position.z;
+        targetPosition.x = transform.position.x;
         transform.position = targetPosition + offset;
+    }
+
+    public void goRight()
+    {
+        transform.DOMoveX(2, 0.5f, false);
+    }
+
+    public void goLeft()
+    {
+        transform.DOMoveX(-2, 0.5f, false);
+    }
+
+    public void goMiddle()
+    {
+        transform.DOMoveX(0, 0.5f, false);
     }
 
     void OnTriggerExit(Collider other)
@@ -29,7 +46,7 @@ public class CameraMovement : MonoBehaviour
         {
             if (currentGround == 3)
             {
-                currentGround=0;    
+                currentGround = 0;
             }
             StartCoroutine(groundManager.moveGround(currentGround));
             currentGround++;

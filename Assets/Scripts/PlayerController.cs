@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
 
+    [Header("Camera")]
+    [SerializeField] CameraMovement camereMovement;
+
     [Header("Physics Components")]
     [SerializeField] private Rigidbody rigid;
     [Header("Animator Components")]
@@ -25,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [Header("Duck Variables")]
     [SerializeField] private float duckDuration = 0.3f;
     [SerializeField] private float duckTime = 0.3f;
-    [SerializeField] private float swipeY=0.75f;
+    [SerializeField] private float swipeY = 0.75f;
 
 
     [Header("Velocity Variables")]
@@ -170,24 +173,32 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator jump()
     {
-        anim.SetBool("Jump", true);
-        transform.DOMoveY(line[currentLine].y, jumpDuration, false);
-        yield return new WaitForSeconds(jumpTime);
-        anim.SetBool("Jump", false);
-        transform.DOMoveY(defaultPosition.y, jumpDuration, false);
+        if (!anim.GetBool("Jump"))
+        {
+            anim.SetBool("Jump", true);
+             anim.SetBool("Duck", false);
+            transform.DOMoveY(line[currentLine].y, jumpDuration, false);
+            yield return new WaitForSeconds(jumpTime);
+            transform.DOMoveY(defaultPosition.y, jumpDuration, false);
+            anim.SetBool("Jump", false);
+        }
     }
 
     IEnumerator duck()
     {
-        anim.SetBool("Duck", true);
-        transform.DOMoveY(swipeY, duckDuration, false);
-        body.transform.DOScaleY(0.25f, duckDuration);
-        yield return new WaitForSeconds(duckTime);
-        anim.SetBool("Duck", false);
-        transform.DOMoveY(defaultPosition.y, duckDuration, false);
-        body.transform.DOScaleY(1f, duckDuration);
-    }
+        if (!anim.GetBool("Duck"))
+        {
+            anim.SetBool("Duck", true);
+            anim.SetBool("Jump", false);
+            transform.DOMoveY(swipeY, duckDuration, false);
+            body.transform.DOScaleY(0.25f, duckDuration);
+            yield return new WaitForSeconds(duckTime);
+            transform.DOMoveY(defaultPosition.y, duckDuration, false);
+            body.transform.DOScaleY(1f, duckDuration);
+            anim.SetBool("Duck", false);
 
+        }
+    }
     void run()
     {
         rigid.AddForce(Vector3.forward * speed);
@@ -237,12 +248,22 @@ public class PlayerController : MonoBehaviour
                     currentLine++;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
                 player.setPosition(transform.position);
+                if(currentLine==2){
+                    camereMovement.goRight();
+                }else if(currentLine==1){
+                    camereMovement.goMiddle();
+                }
                 break;
             case "left":
                 if (currentLine != 0)
                     currentLine--;
                 transform.DOMoveX(line[currentLine].x, horizontalMoveDuration, false);
                 player.setPosition(transform.position);
+                  if(currentLine==1){
+                    camereMovement.goMiddle();
+                }else if(currentLine==0)    {
+                    camereMovement.goLeft();
+                }
                 break;
             case "jump":
                 StartCoroutine(jump());

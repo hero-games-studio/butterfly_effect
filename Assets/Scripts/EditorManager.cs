@@ -6,6 +6,8 @@ using UnityEditor;
 public class EditorManager : MonoBehaviour
 {
 
+
+
 #if UNITY_EDITOR
 
     [MenuItem("Game Settings/Level Up")]
@@ -31,7 +33,6 @@ public class EditorManager : MonoBehaviour
     {
 
     }
-
 
 #endif
 }

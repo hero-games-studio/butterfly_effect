@@ -19,7 +19,7 @@ public class StageManager : MonoSingleton<StageManager>
     private void Awake()
     {
         groundManager = GroundManager.Instance;
-
+        Application.targetFrameRate = 60;
         //currentLevel = 1;
 
     }
@@ -36,12 +36,22 @@ public class StageManager : MonoSingleton<StageManager>
         groundManager.groundSpawn(currentLevel * 10);
     }
 
-    public void touchGoldenGround(){
+    public void setLevel(int currentLevel){
+        this.currentLevel=currentLevel;
+    }
+
+    public void touchGoldenGround()
+    {
         StartCoroutine(goldenButterfly.fly());
     }
 
-    public void stopRoutines(){
+    public void stopRoutines()
+    {
         goldenButterfly.StopAllCoroutines();
+    }
+
+    public int getLevel(){
+        return currentLevel;
     }
 
     #endregion
