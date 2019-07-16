@@ -9,6 +9,8 @@ public class StageManager : MonoSingleton<StageManager>
     [SerializeField] int currentLevel;
 
     GroundManager groundManager;
+    [SerializeField] PlayerController playerController;
+    UIManager uiManager;
 
     GoldenButterfly goldenButterfly;
 
@@ -20,11 +22,13 @@ public class StageManager : MonoSingleton<StageManager>
     {
         if (PlayerPrefs.GetInt("Level") == 0)
         {
-            PlayerPrefs.SetInt("Level",10);
+            PlayerPrefs.SetInt("Level", 1);
         }
         groundManager = GroundManager.Instance;
-        Application.targetFrameRate = 60;
-        //currentLevel = PlayerPrefs.GetInt("Level");
+        uiManager = UIManager.Instance;
+
+
+        currentLevel = PlayerPrefs.GetInt("Level");
 
     }
 
@@ -39,7 +43,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void setStageDesign()
     {
-        groundManager.groundSpawn(currentLevel * 10);
+        groundManager.groundSpawn((currentLevel * 10) - currentLevel);
     }
 
     public void setLevel(int currentLevel)
@@ -52,22 +56,14 @@ public class StageManager : MonoSingleton<StageManager>
 
     }
 
-    public IEnumerator slowMotion()
+    public void levelUp()
     {
-
-        while (true)
-        {
-            Time.timeScale -= 0.01f;
-
-            if (Time.timeScale <= 0.01f)
-            {
-                break;
-            }
-
-            yield return null;
-        }
-        Time.timeScale = 0.01f;
-
+        groundManager.restart();
+        currentLevel++;
+        PlayerPrefs.SetInt("Level", currentLevel);
+        uiManager.setActivePanel(false);
+        playerController.restart();
+        setStageDesign();
     }
 
     public void normalMotion()

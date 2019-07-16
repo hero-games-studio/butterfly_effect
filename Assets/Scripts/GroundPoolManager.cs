@@ -20,7 +20,9 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
     [SerializeField] List<GroundPool> pools;
     Dictionary<int, Queue<GameObject>> poolDictionary;
     [SerializeField] GameObject GoldenButterflyGroundPrefab;
+    [SerializeField] GameObject LastGroundPrefab;
     GameObject GoldenButterflyGround;
+    GameObject LastGround;
     #endregion
 
     #region Functions
@@ -44,11 +46,33 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
         }
         GoldenButterflyGround = Instantiate(GoldenButterflyGroundPrefab);
         GoldenButterflyGround.SetActive(false);
+        LastGround = Instantiate(LastGroundPrefab);
+        LastGround.SetActive(false);
     }
 
-    public GameObject spawnGround(Vector3 position)
+    public void restartPoolObjects()
     {
-        GameObject ground = GoldenButterflyGround;
+        for (int i = 0; i < poolDictionary.Count; i++)
+        {
+            for (int j = 0; j < poolDictionary[i].Count; j++)
+            {
+                GameObject objects = poolDictionary[i].Dequeue();
+                objects.SetActive(false);
+                objects.GetComponent<TileGround>().restart();
+                poolDictionary[i].Enqueue(objects);
+            }
+        }
+
+
+    }
+
+    public GameObject spawnGround(Vector3 position, string tag)
+    {
+        GameObject ground;
+        if (tag == "Golden")
+            ground = GoldenButterflyGround;
+        else
+            ground = LastGround;
 
         ground.SetActive(true);
         ground.transform.position = position;
@@ -66,6 +90,7 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
         GameObject ground = poolDictionary[groundType].Dequeue();
 
         ground.SetActive(true);
+        Debug.Log("sea");
         ground.transform.position = position;
 
         poolDictionary[groundType].Enqueue(ground);

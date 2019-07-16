@@ -31,7 +31,7 @@ public class EditorManager : MonoBehaviour
     [MenuItem("Game Settings/Clear All PlayerPrefs")]
     public static void clearPlayerPrefs()
     {
-
+        PlayerPrefs.DeleteAll();
     }
 
 #endif

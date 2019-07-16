@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private Touch touch = default(Touch);
     private Vector2 startPosition = Vector2.zero;
+    private Vector3 firstPosition = new Vector3(0, 1.5f, -21);
 
     Player player;
     StageManager stageManager;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
     private int currentGround;
     Vector3 defaultPosition;
     float coolDown;
+    bool isDone;
 
     #endregion
 
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         currentGround = 0;
         coolDown = 0;
+        isDone = false;
 
         uiManager.setActivePanel(false);
     }
@@ -117,8 +120,13 @@ public class PlayerController : MonoBehaviour
 
         player.setCurrentLine(currentLine);
         player.setPosition(transform.position);
-        run();
-        movement();
+
+        if (!isDone)
+        {
+            run();
+            movement();
+        }
+
     }
 
 
@@ -286,11 +294,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public Vector3 getVelocity()
+    void levelOver()
     {
-        return rigid.velocity;
+        stageManager.stopRoutines();
+        uiManager.setActivePanel(true);
     }
 
+    public void restart()
+    {
+        transform.position = firstPosition;
+        isDone=false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Golden")
@@ -300,9 +314,14 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "GoldenButterfly")
         {
-            stageManager.stopRoutines();
-            StartCoroutine(stageManager.slowMotion());
-            uiManager.setActivePanel(true);
+            levelOver();
+        }
+        if (other.gameObject.tag == "Last")
+        {
+            levelOver();
+            rigid.velocity=Vector3.zero;
+            isDone=true;
+            groundManager.setISDone(true);
         }
     }
 

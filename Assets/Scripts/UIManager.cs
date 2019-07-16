@@ -27,7 +27,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void tapTo()
     {
-       SceneManager.LoadScene("mainScene");
+       stageManager.levelUp();
     }
 
     public void setActivePanel(bool active){

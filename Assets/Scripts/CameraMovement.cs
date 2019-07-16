@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
+    [SerializeField] ParticleSystem part1, part2;
     [SerializeField] GameObject player;
     Vector3 targetPosition;
     [SerializeField] Vector3 offset;
@@ -40,6 +41,10 @@ public class CameraMovement : MonoBehaviour
         transform.DOMoveX(0, 0.5f, false);
     }
 
+    public void setGround()
+    {
+        currentGround = 0;
+    }
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Ground")
@@ -48,8 +53,16 @@ public class CameraMovement : MonoBehaviour
             {
                 currentGround = 0;
             }
-            StartCoroutine(groundManager.moveGround(currentGround));
-            currentGround++;
+            if (!groundManager.getISDone())
+            {
+                StartCoroutine(groundManager.moveGround(currentGround));
+                currentGround++;
+            }
+        }
+        if (other.gameObject.tag == "Last")
+        {
+            part1.Play();
+            part2.Play();
         }
     }
 

@@ -12,6 +12,7 @@ TagManager:
   - GoldenButterfly
   - Obstacle
   - Ground
+  - Last
   layers:
   - Default
   - TransparentFX

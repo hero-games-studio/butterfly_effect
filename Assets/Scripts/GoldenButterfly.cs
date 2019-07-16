@@ -17,6 +17,8 @@ public class GoldenButterfly : Butterfly
     float distanceLimitValue = 0;
     float moveYDuration = 0.5f;
     float force;
+    float lastGroundYTarget = 25;
+    float lastGroundVerticalDuration = 200;
 
     int currentLine;
 
@@ -109,7 +111,7 @@ public class GoldenButterfly : Butterfly
             Vector3 tempraryVelocity = rigid.velocity;
 
             float distanceZ = transform.localPosition.z - player.getPosition().z;
-            Debug.Log("Distance = " + distanceZ);
+
             if (currentLine == player.getCurrentLine())
             {
                 if (distanceZ > 20)
@@ -126,8 +128,8 @@ public class GoldenButterfly : Butterfly
             else
             {
                 force = 0.25f;
-                tempraryVelocity.z = player.getVelocity().z +force;
-                
+                tempraryVelocity.z = player.getVelocity().z + force;
+
             }
 
             rigid.velocity = tempraryVelocity;
@@ -175,6 +177,14 @@ public class GoldenButterfly : Butterfly
         rigid.DOMoveX(0, moveYDuration, false);
         yield return new WaitForSeconds(moveYDuration + 1);
         distanceLimitValue = 1.75f;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Last")
+        {
+            transform.DOMoveY(lastGroundYTarget, lastGroundVerticalDuration, false);
+        }
     }
     #endregion
 }
