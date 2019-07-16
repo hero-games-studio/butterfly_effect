@@ -80,7 +80,7 @@ public class GroundManager : MonoSingleton<GroundManager>
             }
             else
             {
-                int type = Random.Range(0, 12);
+                int type = Random.Range(0, 23);
 
                 groundPoolManager.spawnGround(type, nextGroundPosition);
             }

@@ -14,6 +14,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     GoldenButterfly goldenButterfly;
 
+    
     #endregion
 
     #region Functions

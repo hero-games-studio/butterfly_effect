@@ -13,7 +13,7 @@ public class GoldenButterfly : Butterfly
     float upperPositionY = 5;
     float lowerPositionY = 1;
     float coolDownCountDownValue = 0.5f;
-    float coolDownDefaultValue = 500;
+    float coolDownDefaultValue = 200;
     float distanceLimitValue = 0;
     float moveYDuration = 0.5f;
     float force;
@@ -21,6 +21,8 @@ public class GoldenButterfly : Butterfly
     float lastGroundVerticalDuration = 200;
 
     int currentLine;
+
+    GroundPoolManager groundPoolManager;
 
     Rigidbody rigid;
     #endregion
@@ -30,12 +32,13 @@ public class GoldenButterfly : Butterfly
     private void Awake()
     {
         player = Player.getInstance();
+        groundPoolManager=GroundPoolManager.Instance;
 
         rigid = this.GetComponent<Rigidbody>();
     }
     private void Start()
     {
-        coolDown = 500;
+        coolDown = coolDownDefaultValue;
         currentLine = 1;
     }
 
@@ -138,6 +141,7 @@ public class GoldenButterfly : Butterfly
         }
     }
 
+
     private IEnumerator goDown()
     {
         rigid.DOMoveY(lowerPositionY, moveYDuration, false);
@@ -179,11 +183,21 @@ public class GoldenButterfly : Butterfly
         distanceLimitValue = 1.75f;
     }
 
+    void restart(){
+        coolDown = coolDownDefaultValue;
+        currentLine = 1;
+        print("REstart");
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Last")
         {
             transform.DOMoveY(lastGroundYTarget, lastGroundVerticalDuration, false);
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            
         }
     }
     #endregion

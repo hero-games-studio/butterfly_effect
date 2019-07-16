@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     StageManager stageManager;
     GroundManager groundManager;
     UIManager uiManager;
+    ParticleManager particleManager;
     private int currentGround;
     Vector3 defaultPosition;
     float coolDown;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         stageManager = StageManager.Instance;
         groundManager = GroundManager.Instance;
         uiManager = UIManager.Instance;
+        particleManager = ParticleManager.Instance;
 
         defaultPosition = transform.position;
 
@@ -94,7 +96,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         checkPositionLimits();
-        controlVelocity();
+        if (!isDone)
+            controlVelocity();
     }
 
     private void Update()
@@ -298,12 +301,16 @@ public class PlayerController : MonoBehaviour
     {
         stageManager.stopRoutines();
         uiManager.setActivePanel(true);
+        rigid.velocity = Vector3.zero;
+        isDone = true;
+        groundManager.setISDone(true);
+        particleManager.finish();
     }
 
     public void restart()
     {
         transform.position = firstPosition;
-        isDone=false;
+        isDone = false;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -316,15 +323,40 @@ public class PlayerController : MonoBehaviour
         {
             levelOver();
         }
+        if (other.gameObject.tag == "Butterfly")
+        {
+            int count = player.getButterflyCount() + 1;
+            player.setButterflyCount(count);
+            Debug.Log(count);
+        }
         if (other.gameObject.tag == "Last")
         {
             levelOver();
-            rigid.velocity=Vector3.zero;
-            isDone=true;
-            groundManager.setISDone(true);
         }
     }
 
+    void stumbleFalse()
+    {
+        anim.SetBool("Stumble", false);
+         isDone = false;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+
+        if (other.gameObject.tag == "Obstacle")
+        {
+            Vector3 vel = rigid.velocity;
+            vel.z=10;
+            rigid.velocity=vel;
+
+            particleManager.hitObstacle();
+            anim.SetBool("Stumble", true);
+            isDone = true;
+            Invoke("stumbleFalse", 0.7f);
+        }
+
+    }
     #endregion
 }
 

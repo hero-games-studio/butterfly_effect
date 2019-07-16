@@ -62,9 +62,13 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
                 poolDictionary[i].Enqueue(objects);
             }
         }
-
-
     }
+
+    public GameObject getButterflyParent()
+    {
+        return GoldenButterflyGround;
+    }
+
 
     public GameObject spawnGround(Vector3 position, string tag)
     {
@@ -90,7 +94,7 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
         GameObject ground = poolDictionary[groundType].Dequeue();
 
         ground.SetActive(true);
-        Debug.Log("sea");
+
         ground.transform.position = position;
 
         poolDictionary[groundType].Enqueue(ground);

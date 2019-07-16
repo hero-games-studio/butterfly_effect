@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -7307858161525593783}
   - component: {fileID: 2477538992656978606}
   - component: {fileID: 8629726452983086140}
-  - component: {fileID: 2569761979116001201}
   m_Layer: 0
   m_Name: Golden Butterfly
   m_TagString: GoldenButterfly
@@ -111,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6086c55074d166a42bca2508f974f0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 2569761979116001201}
+  anim: {fileID: 0}
   body: {fileID: 1200110904982117930}
   particle: {fileID: 1675797827633850095}
 --- !u!54 &2477538992656978606
@@ -149,22 +148,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!111 &2569761979116001201
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2184372043586207414}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 5227745b2aa39f346af0569b72c69e31, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 5227745b2aa39f346af0569b72c69e31, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &2998565546722792602
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2837453503126175177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5269,11 +5252,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Butterfly
       objectReference: {fileID: 0}
-    - target: {fileID: 1185786894759419695, guid: 2dbcae9f13c406c468d7749f75677918,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.03
-      objectReference: {fileID: 0}
     - target: {fileID: 335150138483478053, guid: 2dbcae9f13c406c468d7749f75677918,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5343,6 +5321,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185786894759419695, guid: 2dbcae9f13c406c468d7749f75677918,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1780839675563754085, guid: 2dbcae9f13c406c468d7749f75677918,
         type: 3}
@@ -5564,6 +5547,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: butterfly3d
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 09540844fb8b374408cb38044c9edbd1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8450392318623552425, guid: 09540844fb8b374408cb38044c9edbd1,
         type: 3}

@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78612107768be5d49a4a9001f15d016a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  butterflies: {fileID: 0}
-  Obstacles: {fileID: 0}
+  butterflies: []
+  Obstacles: []
 --- !u!1 &7995069858665071826
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +204,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200110904982117930, guid: bc5114298c676944babc2c49d29485dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602296680946970577, guid: bc5114298c676944babc2c49d29485dd,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8896926270338351424, guid: bc5114298c676944babc2c49d29485dd,
         type: 3}

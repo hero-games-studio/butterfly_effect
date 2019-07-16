@@ -22,6 +22,7 @@ public class Butterfly : MonoBehaviour
             //anim.Play();
             body.gameObject.SetActive(false);
             particle.Play();
+
             if(this.gameObject.tag == "Butterfly")
                 player.setButterflyCount(1+player.getButterflyCount());
         }
