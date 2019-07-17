@@ -27,4 +27,9 @@ public class Butterfly : MonoBehaviour
                 player.setButterflyCount(1 + player.getButterflyCount());
         }
     }
+
+    public void Update()
+    {
+
+    }
 }

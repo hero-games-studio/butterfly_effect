@@ -26,6 +26,13 @@ public class CameraMovement : MonoBehaviour
         transform.position = targetPosition + offset;
     }
 
+    public void restart()
+    {
+        currentGround = 0;
+        goMiddle();
+
+    }
+
     public void goRight()
     {
         transform.DOMoveX(2.5f, 0.5f, false);

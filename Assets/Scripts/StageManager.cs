@@ -68,6 +68,11 @@ public class StageManager : MonoSingleton<StageManager>
         goldenButterfly = GameObject.Find("GoldenButterfly").GetComponent<GoldenButterfly>();
     }
 
+    public void setSlide(bool slide)
+    {
+        goldenButterfly.setSlide(slide);
+    }
+
     public void normalMotion()
     {
         Time.timeScale = 1;
@@ -75,8 +80,15 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void touchGoldenGround()
     {
-        if (goldenButterfly != null)
-            StartCoroutine(goldenButterfly.fly());
+        try
+        {
+            if (goldenButterfly != null)
+                StartCoroutine(goldenButterfly.fly());
+        }
+        catch
+        {
+
+        }
     }
 
     public void stopRoutines()

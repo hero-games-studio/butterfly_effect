@@ -132,7 +132,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    public bool getIsDone()
+    {
+        return isDone;
+    }
     void movement()
     {
         if (Input.touches.Length > 0)
@@ -203,6 +206,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!anim.GetBool("Duck"))
         {
+            stageManager.setSlide(true);
             anim.SetBool("Duck", true);
             anim.SetBool("Jump", false);
             transform.DOMoveY(swipeY, duckDuration, false);
@@ -211,6 +215,7 @@ public class PlayerController : MonoBehaviour
             transform.DOMoveY(defaultPosition.y, duckDuration, false);
             body.transform.DOScaleY(1f, duckDuration);
             anim.SetBool("Duck", false);
+            stageManager.setSlide(false);
 
         }
     }
@@ -297,20 +302,41 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void levelOver()
+    public void levelOver()
     {
+        anim.SetBool("Jump", false);
+        anim.SetBool("Stumble", false);
+        anim.SetBool("Slide", false);
+        anim.SetBool("Dancing", true);
+
         stageManager.stopRoutines();
-        uiManager.setActivePanel(true);
         rigid.velocity = Vector3.zero;
         isDone = true;
         groundManager.setISDone(true);
         particleManager.finish();
+        Invoke("callUI", 2);
+    }
+
+    void callUI()
+    {
+        CancelInvoke("callUI");
+        uiManager.setActivePanel(true);
     }
 
     public void restart()
     {
         transform.position = firstPosition;
         isDone = false;
+        currentLine = 0;
+        currentGround = 0;
+
+        camereMovement.restart();
+
+        anim.SetBool("Jump", false);
+        anim.SetBool("Stumble", false);
+        anim.SetBool("Slide", false);
+        anim.SetBool("Dancing", false);
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -319,7 +345,7 @@ public class PlayerController : MonoBehaviour
             stageManager.touchGoldenGround();
 
         }
-        if (other.gameObject.tag == "GoldenButterfly")
+        if (other.gameObject.tag == "GoldenButterfly" && !isDone)
         {
             levelOver();
             Destroy(other.gameObject);
@@ -331,7 +357,7 @@ public class PlayerController : MonoBehaviour
             player.setButterflyCount(count);
             Debug.Log(count);
         }
-        if (other.gameObject.tag == "Last")
+        if (other.gameObject.tag == "Last" && !isDone)
         {
             levelOver();
         }
@@ -340,7 +366,7 @@ public class PlayerController : MonoBehaviour
     void stumbleFalse()
     {
         anim.SetBool("Stumble", false);
-         isDone = false;
+        isDone = false;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -349,8 +375,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Obstacle")
         {
             Vector3 vel = rigid.velocity;
-            vel.z=10;
-            rigid.velocity=vel;
+            vel.z = 10;
+            rigid.velocity = vel;
 
             particleManager.hitObstacle();
             anim.SetBool("Stumble", true);
