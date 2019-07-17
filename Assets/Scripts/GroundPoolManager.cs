@@ -69,6 +69,11 @@ public class GroundPoolManager : MonoSingleton<GroundPoolManager>
         return GoldenButterflyGround;
     }
 
+    public void setButterflyGround()
+    {
+        Destroy(GoldenButterflyGround);
+       GoldenButterflyGround = Instantiate(GoldenButterflyGroundPrefab);
+    }
 
     public GameObject spawnGround(Vector3 position, string tag)
     {

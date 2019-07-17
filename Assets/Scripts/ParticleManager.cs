@@ -6,6 +6,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
 {
     [SerializeField] ParticleSystem finishParticle1, finishParticle2;
     [SerializeField] ParticleSystem sadParticle;
+    [SerializeField] ParticleSystem perfectParticle;
     public void finish()
     {
         finishParticle1.Play();
@@ -15,6 +16,12 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     public void hitObstacle()
     {
         sadParticle.Play();
+    }
+
+    public void catchButterfly()
+    {
+        finish();
+        perfectParticle.Play();
     }
 
 

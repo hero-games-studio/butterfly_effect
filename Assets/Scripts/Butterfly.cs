@@ -12,7 +12,7 @@ public class Butterfly : MonoBehaviour
 
     void Awake()
     {
-        player=Player.getInstance();
+        player = Player.getInstance();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,8 +23,8 @@ public class Butterfly : MonoBehaviour
             body.gameObject.SetActive(false);
             particle.Play();
 
-            if(this.gameObject.tag == "Butterfly")
-                player.setButterflyCount(1+player.getButterflyCount());
+            if (this.gameObject.tag == "Butterfly")
+                player.setButterflyCount(1 + player.getButterflyCount());
         }
     }
 }

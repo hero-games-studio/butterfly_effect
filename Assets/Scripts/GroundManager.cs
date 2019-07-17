@@ -45,6 +45,7 @@ public class GroundManager : MonoSingleton<GroundManager>
         cameraMovement.StopAllCoroutines();
         cameraMovement.setGround();
         nextGroundPosition = nextGroundOffsetZ;
+        groundPoolManager.setButterflyGround();
 
         for (int i = 0; i < groundArray.Length; i++)
         {
@@ -58,7 +59,7 @@ public class GroundManager : MonoSingleton<GroundManager>
 
     void startMoveGround()
     {
-        isDone=false;
+        isDone = false;
     }
 
     public void setISDone(bool setting)
@@ -69,6 +70,7 @@ public class GroundManager : MonoSingleton<GroundManager>
     {
         return isDone;
     }
+    
     public void groundSpawn(int number)
     {
 

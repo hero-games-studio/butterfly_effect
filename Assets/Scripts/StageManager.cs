@@ -14,7 +14,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     GoldenButterfly goldenButterfly;
 
-    
+
     #endregion
 
     #region Functions
@@ -65,6 +65,7 @@ public class StageManager : MonoSingleton<StageManager>
         uiManager.setActivePanel(false);
         playerController.restart();
         setStageDesign();
+        goldenButterfly = GameObject.Find("GoldenButterfly").GetComponent<GoldenButterfly>();
     }
 
     public void normalMotion()
@@ -74,12 +75,13 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void touchGoldenGround()
     {
-        StartCoroutine(goldenButterfly.fly());
+        if (goldenButterfly != null)
+            StartCoroutine(goldenButterfly.fly());
     }
 
     public void stopRoutines()
     {
-        goldenButterfly.StopAllCoroutines();
+        Destroy(goldenButterfly);
     }
 
     public int getLevel()

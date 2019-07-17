@@ -322,6 +322,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "GoldenButterfly")
         {
             levelOver();
+            Destroy(other.gameObject);
+            particleManager.catchButterfly();
         }
         if (other.gameObject.tag == "Butterfly")
         {
