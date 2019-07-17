@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameAnalyticsSDK;
 
 public class StageManager : MonoSingleton<StageManager>
 {
@@ -11,6 +12,7 @@ public class StageManager : MonoSingleton<StageManager>
     GroundManager groundManager;
     [SerializeField] PlayerController playerController;
     UIManager uiManager;
+    Player player;
 
     GoldenButterfly goldenButterfly;
 
@@ -27,6 +29,7 @@ public class StageManager : MonoSingleton<StageManager>
         }
         groundManager = GroundManager.Instance;
         uiManager = UIManager.Instance;
+        player = Player.getInstance();
 
 
         currentLevel = PlayerPrefs.GetInt("Level");
@@ -45,6 +48,8 @@ public class StageManager : MonoSingleton<StageManager>
     private void setStageDesign()
     {
         groundManager.groundSpawn((currentLevel * 10) - currentLevel);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, Application.version, PlayerPrefs.GetInt("Level"));
+
     }
 
     public void setLevel(int currentLevel)
@@ -66,6 +71,7 @@ public class StageManager : MonoSingleton<StageManager>
         playerController.restart();
         setStageDesign();
         goldenButterfly = GameObject.Find("GoldenButterfly").GetComponent<GoldenButterfly>();
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, Application.version, PlayerPrefs.GetInt("Level").ToString(), player.getButterflyCount().ToString());
     }
 
     public void setSlide(bool slide)

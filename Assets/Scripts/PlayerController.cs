@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
         player.setCurrentLine(currentLine);
     }
 
+
     private void Start()
     {
         currentGround = 0;
@@ -91,6 +92,8 @@ public class PlayerController : MonoBehaviour
         isDone = false;
 
         uiManager.setActivePanel(false);
+
+
     }
 
     private void FixedUpdate()
