@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Lean.Touch;
 
 public class PlayerController : MonoBehaviour
 {
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
     GroundManager groundManager;
     UIManager uiManager;
     ParticleManager particleManager;
+
+    LeanFingerSwipe leanFingerSwipe;
     private int currentGround;
     Vector3 defaultPosition;
     float coolDown;
@@ -92,6 +95,8 @@ public class PlayerController : MonoBehaviour
         isDone = false;
 
         uiManager.setActivePanel(false);
+
+        leanFingerSwipe = GetComponent<LeanFingerSwipe>();
     }
 
     private void FixedUpdate()
@@ -133,6 +138,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void setMove(string move)
+    {
+        command(move);
+    }
+
     public bool getIsDone()
     {
         return isDone;
@@ -143,57 +153,61 @@ public class PlayerController : MonoBehaviour
         {
             touch = Input.touches[0];
 
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    startPosition = touch.position;
-                    startTime = Time.time;
-                    break;
-                case TouchPhase.Moved:
-                    Vector3 positionDelta = (Vector2)touch.position - startPosition;
 
-                    float timeDifference = Time.time - startTime;
-                    bool timeOut = timeDifference > timeDifferenceLimit;
+            /* 
 
-                    float absPositionDeltaY = Mathf.Abs(positionDelta.y);
-                    float absPositionDeltaX = Mathf.Abs(positionDelta.x);
 
-                    bool isVertical = absPositionDeltaY > absPositionDeltaX;
-
-                    Debug.Log(positionDelta);
-
-                    if (isVertical)
-                    {
-                        if (!timeOut)
+                        switch (touch.phase)
                         {
-                            if (positionDelta.y > 0 && absPositionDeltaY > minimumSwipeDistanceY)//Up
-                            {
-                                command(jumpCommand);
-                            }
-                            else
-                            {
-                                command(duckCommand);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (!timeOut)
-                        {
-                            if (positionDelta.x > 0 && absPositionDeltaX > minimumSwipeDistanceX && !timeOut)//Right
-                            {
-                                command(rightCommand);
-                            }
-                            else//left
-                            {
-                                command(leftCommand);
-                            }
+                            case TouchPhase.Began:
+                                startPosition = touch.position;
+                                startTime = Time.time;
+                                break;
+                            case TouchPhase.Moved:
+                                Vector3 positionDelta = (Vector2)touch.position - startPosition;
 
-                        }
-                    }
-                    startTime = 0;
-                    break;
-            }
+                                float timeDifference = Time.time - startTime;
+                                bool timeOut = timeDifference > timeDifferenceLimit;
+
+                                float absPositionDeltaY = Mathf.Abs(positionDelta.y);
+                                float absPositionDeltaX = Mathf.Abs(positionDelta.x);
+
+                                bool isVertical = absPositionDeltaY > absPositionDeltaX;
+
+                                Debug.Log(positionDelta);
+
+                                if (isVertical)
+                                {
+                                    if (!timeOut)
+                                    {
+                                        if (positionDelta.y > 0 && absPositionDeltaY > minimumSwipeDistanceY)//Up
+                                        {
+                                            command(jumpCommand);
+                                        }
+                                        else
+                                        {
+                                            command(duckCommand);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (!timeOut)
+                                    {
+                                        if (positionDelta.x > 0 && absPositionDeltaX > minimumSwipeDistanceX && !timeOut)//Right
+                                        {
+                                            command(rightCommand);
+                                        }
+                                        else//left
+                                        {
+                                            command(leftCommand);
+                                        }
+
+                                    }
+                                }
+                                startTime = 0;
+                                break;
+                        }*/
         }
     }
 
