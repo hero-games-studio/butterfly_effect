@@ -16,7 +16,7 @@ public class TouchManager : MonoBehaviour
 	public float SWIPE_THRESHOLD = 20f;
 
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
 
 		foreach (Touch touch in Input.touches) {
@@ -33,13 +33,6 @@ public class TouchManager : MonoBehaviour
 					DetectSwipe ();
                      detectSwipeAfterRelease=false;
 				}
-			}
-
-			//Detects swipe after finger is released from screen
-			else if (touch.phase == TouchPhase.Ended) {
-				fingerDownPos = touch.position;
-				//DetectSwipe ();
-               detectSwipeAfterRelease=false;
 			}
 		}
 	}
