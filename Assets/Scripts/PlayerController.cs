@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
         uiManager.setActivePanel(false);
 
         leanFingerSwipe = GetComponent<LeanFingerSwipe>();
+        Debug.Log(gameObject.name);
     }
 
     private void FixedUpdate()
@@ -281,7 +282,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void command(string direction)
+    public void command(string direction)
     {
         switch (direction)
         {
