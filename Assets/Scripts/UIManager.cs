@@ -11,8 +11,10 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("Text")]
     [SerializeField] TextMeshProUGUI tapToText;
     [SerializeField] TextMeshProUGUI overLevelText;
+    [SerializeField] TextMeshProUGUI pointText;
     [Header("Panel")]
     [SerializeField] GameObject panel;
+     [SerializeField] GameObject InGamepanel;
 
     StageManager stageManager;
     Player player;
@@ -23,17 +25,31 @@ public class UIManager : MonoSingleton<UIManager>
     {
         stageManager = StageManager.Instance;
         player = Player.getInstance();
+        InGamepanel.SetActive(true);
     }
 
     public void tapTo()
     {
-       stageManager.levelUp();
+        stageManager.levelUp();
     }
 
-    public void setActivePanel(bool active){
+    public void setActivePanel(bool active)
+    {
 
         panel.SetActive(active);
+        InGamepanel.SetActive(!active);
 
     }
+
+    public void setOverLevelText(string text)
+    {
+        overLevelText.text=text;
+    }
+
+      public void setPointText(string text)
+    {
+        pointText.text=text;
+    }
+
 
 }

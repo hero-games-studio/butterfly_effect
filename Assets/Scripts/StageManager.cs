@@ -49,7 +49,7 @@ public class StageManager : MonoSingleton<StageManager>
     {
         int stageLength = 15 + (currentLevel * 2);
 
-        groundManager.groundSpawn((currentLevel * 10) - currentLevel);
+        groundManager.groundSpawn(stageLength);
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, Application.version, PlayerPrefs.GetInt("Level"));
 
     }

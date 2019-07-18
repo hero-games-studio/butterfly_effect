@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "GoldenButterfly" && !isDone)
         {
-         
+            uiManager.setOverLevelText("Successfully Completed!");
             levelOver();
             Destroy(other.gameObject);
             particleManager.catchButterfly();
@@ -364,9 +364,11 @@ public class PlayerController : MonoBehaviour
         {
             int count = player.getButterflyCount() + 1;
             player.setButterflyCount(count);
+            uiManager.setPointText(count.ToString());
         }
         if (other.gameObject.tag == "Last" && !isDone)
         {
+            uiManager.setOverLevelText("Level Completed!");
             levelOver();
         }
     }
@@ -386,10 +388,17 @@ public class PlayerController : MonoBehaviour
             vel.z = 10;
             rigid.velocity = vel;
 
+            int count = player.getButterflyCount() - 5;
+
+            if (count < 0) { count = 0; }
+            player.setButterflyCount(count);
+            uiManager.setPointText(count.ToString());
+
             particleManager.hitObstacle();
             anim.SetBool("Stumble", true);
             isDone = true;
             Invoke("stumbleFalse", 0.7f);
+
         }
 
     }
