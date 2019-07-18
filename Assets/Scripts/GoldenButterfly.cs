@@ -144,14 +144,14 @@ public class GoldenButterfly : Butterfly
                     }
                     else
                     {
-                        force += Time.deltaTime;
+                        force += 1.5f*Time.deltaTime;
                     }
 
                     tempraryVelocity.z = player.getVelocity().z - force;
                 }
                 else
                 {
-                    force = 0.25f;
+                    force = 0.15f;
                     tempraryVelocity.z = player.getVelocity().z + force;
 
                 }

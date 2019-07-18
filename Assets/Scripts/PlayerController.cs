@@ -92,8 +92,6 @@ public class PlayerController : MonoBehaviour
         isDone = false;
 
         uiManager.setActivePanel(false);
-
-
     }
 
     private void FixedUpdate()
@@ -157,11 +155,18 @@ public class PlayerController : MonoBehaviour
                     float timeDifference = Time.time - startTime;
                     bool timeOut = timeDifference > timeDifferenceLimit;
 
-                    if (Mathf.Abs(positionDelta.y) > Mathf.Abs(positionDelta.x))
+                    float absPositionDeltaY = Mathf.Abs(positionDelta.y);
+                    float absPositionDeltaX = Mathf.Abs(positionDelta.x);
+
+                    bool isVertical = absPositionDeltaY > absPositionDeltaX;
+
+                    Debug.Log(positionDelta);
+
+                    if (isVertical)
                     {
                         if (!timeOut)
                         {
-                            if (positionDelta.y > 0 && Mathf.Abs(positionDelta.y) > minimumSwipeDistanceY)//Up
+                            if (positionDelta.y > 0 && absPositionDeltaY > minimumSwipeDistanceY)//Up
                             {
                                 command(jumpCommand);
                             }
@@ -175,7 +180,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (!timeOut)
                         {
-                            if (positionDelta.x > 0 && Mathf.Abs(positionDelta.x) > minimumSwipeDistanceX && !timeOut)//Right
+                            if (positionDelta.x > 0 && absPositionDeltaX > minimumSwipeDistanceX && !timeOut)//Right
                             {
                                 command(rightCommand);
                             }
@@ -350,6 +355,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "GoldenButterfly" && !isDone)
         {
+         
             levelOver();
             Destroy(other.gameObject);
             particleManager.catchButterfly();
@@ -358,7 +364,6 @@ public class PlayerController : MonoBehaviour
         {
             int count = player.getButterflyCount() + 1;
             player.setButterflyCount(count);
-            Debug.Log(count);
         }
         if (other.gameObject.tag == "Last" && !isDone)
         {

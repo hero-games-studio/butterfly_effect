@@ -36,15 +36,6 @@ public class Player
 
     #region Get Functions
 
-    public int getLevel()
-    {
-        return level;
-    }
-
-    public int getCoins()
-    {
-        return coins;
-    }
 
     public int getButterflyCount()
     {

@@ -27,19 +27,19 @@ MonoBehaviour:
   CustomArea: 
   gameKey:
   - 45d835ad1ad117003cf173c4cd9fa296
-  - 58fb04af4443e7dcd0bff30a66e94fa5
+  - 5f5cab4eb8a1aca0c0cb4e5c711579b1
   secretKey:
   - 616c180d801bf6fa9cad441c527eb0b7c3867c0d
-  - 91db420021e14e941ecb369184967323c0dc972d
+  - afecc4fa4fc7233e2e77e5318e1a5ec3f4017dfa
   Build:
   - 0.1
   - 0.1
   SelectedPlatformStudio:
-  - Hero Games
-  - Hero Games
+  - 
+  - 
   SelectedPlatformGame:
-  - Butterfly Effect - Android
-  - Butterfly Effect - iOS
+  - 
+  - 
   SelectedPlatformGameID: ad300100ae300100
   SelectedStudio: 0100000001000000
   SelectedGame: 0500000001000000

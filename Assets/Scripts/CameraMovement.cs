@@ -17,6 +17,7 @@ public class CameraMovement : MonoBehaviour
         groundManager = GroundManager.Instance;
 
         currentGround = 0;
+
     }
 
     private void FixedUpdate()

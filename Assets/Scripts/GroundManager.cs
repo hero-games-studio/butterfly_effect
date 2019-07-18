@@ -76,7 +76,7 @@ public class GroundManager : MonoSingleton<GroundManager>
 
         for (int i = 0; i < number; i++)
         {
-            if (number / 2 == i)
+            if (i== 7)
             {
                 groundPoolManager.spawnGround(nextGroundPosition, "Golden");
             }

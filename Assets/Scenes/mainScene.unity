@@ -24368,8 +24368,8 @@ MonoBehaviour:
   velocityUpperLimit: 50
   velocityLowerLimit: 30
   rateofVelocityChange: 2
-  minimumSwipeDistanceY: 1
-  minimumSwipeDistanceX: 1
+  minimumSwipeDistanceY: 10
+  minimumSwipeDistanceX: 10
   timeDifferenceLimit: 0.5
   jumpCommand: jump
   duckCommand: duck
