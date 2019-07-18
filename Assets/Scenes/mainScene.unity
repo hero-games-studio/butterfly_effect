@@ -22071,7 +22071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 4853331465052327509}
   detectSwipeAfterRelease: 0
-  SWIPE_THRESHOLD: 20
+  SWIPE_THRESHOLD: 10
 --- !u!1 &2014463612
 GameObject:
   m_ObjectHideFlags: 0
