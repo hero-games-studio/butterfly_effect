@@ -22036,6 +22036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2010451890}
   - component: {fileID: 2010451891}
+  - component: {fileID: 2010451893}
   m_Layer: 0
   m_Name: TouchManager
   m_TagString: Untagged
@@ -22072,6 +22073,20 @@ MonoBehaviour:
   playerController: {fileID: 4853331465052327509}
   detectSwipeAfterRelease: 0
   SWIPE_THRESHOLD: 10
+--- !u!114 &2010451893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010451889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d393be0e8d7890e46947e653c997aba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadzone: 100
+  doubleTapDelta: 0.5
 --- !u!1 &2014463612
 GameObject:
   m_ObjectHideFlags: 0
